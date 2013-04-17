@@ -117,12 +117,13 @@
     'slide-out' : 'slide-in',
     'fade'      : 'fade'
   };
+
   var bars = {
     bartab             : '.bar-tab',
     bartitle           : '.bar-title',
     barfooter          : '.bar-footer',
     barheadersecondary : '.bar-header-secondary'
-  }
+  };
 
   var cacheReplace = function (data, updates) {
     PUSH.id = data.id;
@@ -366,6 +367,8 @@
     var containerDirection;
     var swapDirection;
 
+    var wrapper = document.querySelector('.container') || document.body;
+
     if (!transition) {
       if (container) container.innerHTML = swap.innerHTML;
       else if (swap.classList.contains('content')) document.body.appendChild(swap);
@@ -508,8 +511,9 @@
   window.addEventListener('touchend', touchend);
   window.addEventListener('click', function (e) { if (getTarget(e)) e.preventDefault(); });
   window.addEventListener('popstate', popstate);
-
-}();/* ----------------------------------
+  window.PUSH = PUSH;
+}();
+/* ----------------------------------
  * TABS v1.0.0
  * Licensed under The MIT License
  * http://opensource.org/licenses/MIT
