@@ -115,7 +115,8 @@
   var transitionMap  = {
     'slide-in'  : 'slide-out',
     'slide-out' : 'slide-in',
-    'fade'      : 'fade'
+    'fade'      : 'fade',
+    'none'      : 'none'
   };
 
   var bars = {
@@ -383,6 +384,12 @@
         swap.classList.add('fade');
       }
 
+      if (transition == 'none') {
+        container.classList.add('in');
+        container.classList.add('none');
+        swap.classList.add('none');
+      }
+
       if (/slide/.test(transition)) {
         swap.classList.add(enter ? 'right' : 'left');
         swap.classList.add('slide');
@@ -406,6 +413,19 @@
       }
       function fadeSwapEnd () {
         swap.removeEventListener('webkitTransitionEnd', fadeSwapEnd);
+        container.parentNode.removeChild(container);
+        swap.classList.remove('fade');
+        swap.classList.remove('in');
+        complete && complete();
+      }
+    }
+
+    if (transition == 'none') {
+      container.offsetWidth; // force reflow
+      container.classList.remove('in');
+      noneSwapEnd();
+
+      function noneSwapEnd () {
         container.parentNode.removeChild(container);
         swap.classList.remove('fade');
         swap.classList.remove('in');
