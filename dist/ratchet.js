@@ -192,11 +192,11 @@
   // ==========================================
 
   var touchend = function (e) {
+    e.preventDefault();
+
     var target = getTarget(e);
 
     if (!target) return;
-
-    e.preventDefault();
 
     PUSH({
       url        : target.href,
